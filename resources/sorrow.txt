@@ -1,0 +1,8 @@
+b80344d063b5ccb3212f76538f3d9e43d87dca9e,SOXMIUS12A8C13CD59,1,Sun Giant,Sun Giant,Fleet Foxes,2008
+b80344d063b5ccb3212f76538f3d9e43d87dca9e,SOXRXDG12A8C131DE5,1,City Love,Any Given Thursday,John Mayer,0
+b80344d063b5ccb3212f76538f3d9e43d87dca9e,SOXZQDE12A8C135833,1,Right Back,40oz To Freedom,Sublime,0
+b80344d063b5ccb3212f76538f3d9e43d87dca9e,SOYHEPA12A8C13097F,8,Moonshine,Thicker Than Water,Jack Johnson,2003
+b80344d063b5ccb3212f76538f3d9e43d87dca9e,SOZOBWN12A8C130999,1,Holes To Heaven,Thicker Than Water,Jack Johnson,2003
+85c1f87fea955d09b4bec2e36aee110927aedf9a,SODJTHN12AF72A8FCD,2,The Best of Times,The Best Of Times,Sage Francis,2010
+bd4c6e843f00bd476847fb75c47b4fb430a06856,SOBDRND12A8C13FD08,1,Sun Hands,Gorilla Manor,Local Natives,2009
+bd4c6e843f00bd476847fb75c47b4fb430a06856,SOCHBAJ12AAF3B3A4F,1,Camera Talk,Camera Talk,Local Natives,2009

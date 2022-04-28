@@ -9,15 +9,18 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+import pandas as pd
+import numpy as np
+import Recommenders as rec
 
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(800, 600)
+        MainWindow.resize(826, 644)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
-        self.distress_button = QtWidgets.QPushButton(self.centralwidget,clicked=lambda: self.press_it_distress())
+        self.distress_button = QtWidgets.QPushButton(self.centralwidget, clicked= lambda: self.press_it(s="distress_button"))
         self.distress_button.setGeometry(QtCore.QRect(40, 240, 91, 81))
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap("distress.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
@@ -25,7 +28,7 @@ class Ui_MainWindow(object):
         self.distress_button.setIconSize(QtCore.QSize(91, 71))
         self.distress_button.setFlat(True)
         self.distress_button.setObjectName("distress_button")
-        self.misery_button = QtWidgets.QPushButton(self.centralwidget,clicked=lambda: self.press_it_misery())
+        self.misery_button = QtWidgets.QPushButton(self.centralwidget, clicked=lambda:self.press_it(s="misery_button"))
         self.misery_button.setGeometry(QtCore.QRect(180, 250, 71, 71))
         self.misery_button.setText("")
         icon1 = QtGui.QIcon()
@@ -34,7 +37,7 @@ class Ui_MainWindow(object):
         self.misery_button.setIconSize(QtCore.QSize(91, 71))
         self.misery_button.setFlat(True)
         self.misery_button.setObjectName("misery_button")
-        self.sorrow_button = QtWidgets.QPushButton(self.centralwidget,clicked=lambda: self.press_it_sorrow())
+        self.sorrow_button = QtWidgets.QPushButton(self.centralwidget, clicked=lambda:self.press_it(s="sorrow_button"))
         self.sorrow_button.setGeometry(QtCore.QRect(300, 240, 71, 71))
         self.sorrow_button.setText("")
         icon2 = QtGui.QIcon()
@@ -43,7 +46,7 @@ class Ui_MainWindow(object):
         self.sorrow_button.setIconSize(QtCore.QSize(91, 71))
         self.sorrow_button.setFlat(True)
         self.sorrow_button.setObjectName("sorrow_button")
-        self.contented_button = QtWidgets.QPushButton(self.centralwidget,clicked=lambda: self.press_it_contented())
+        self.contented_button = QtWidgets.QPushButton(self.centralwidget, clicked=lambda:self.press_it(s="contented_button"))
         self.contented_button.setGeometry(QtCore.QRect(410, 240, 91, 71))
         self.contented_button.setText("")
         icon3 = QtGui.QIcon()
@@ -52,7 +55,7 @@ class Ui_MainWindow(object):
         self.contented_button.setIconSize(QtCore.QSize(91, 71))
         self.contented_button.setFlat(True)
         self.contented_button.setObjectName("contented_button")
-        self.happy_button = QtWidgets.QPushButton(self.centralwidget,clicked=lambda: self.press_it_happy())
+        self.happy_button = QtWidgets.QPushButton(self.centralwidget, clicked=lambda:self.press_it(s="happy_button"))
         self.happy_button.setGeometry(QtCore.QRect(530, 240, 91, 71))
         self.happy_button.setText("")
         icon4 = QtGui.QIcon()
@@ -61,7 +64,7 @@ class Ui_MainWindow(object):
         self.happy_button.setIconSize(QtCore.QSize(91, 71))
         self.happy_button.setFlat(True)
         self.happy_button.setObjectName("happy_button")
-        self.excited_button = QtWidgets.QPushButton(self.centralwidget,clicked=lambda: self.press_it_excited())
+        self.excited_button = QtWidgets.QPushButton(self.centralwidget, clicked=lambda: self.press_it(s="excited_button"))
         self.excited_button.setGeometry(QtCore.QRect(660, 240, 81, 71))
         self.excited_button.setText("")
         icon5 = QtGui.QIcon()
@@ -71,13 +74,13 @@ class Ui_MainWindow(object):
         self.excited_button.setFlat(True)
         self.excited_button.setObjectName("excited_button")
         self.label_5 = QtWidgets.QLabel(self.centralwidget)
-        self.label_5.setGeometry(QtCore.QRect(670, 180, 71, 41))
+        self.label_5.setGeometry(QtCore.QRect(660, 180, 71, 41))
         font = QtGui.QFont()
         font.setPointSize(16)
         self.label_5.setFont(font)
         self.label_5.setObjectName("label_5")
         self.label_4 = QtWidgets.QLabel(self.centralwidget)
-        self.label_4.setGeometry(QtCore.QRect(550, 190, 71, 31))
+        self.label_4.setGeometry(QtCore.QRect(550, 180, 81, 41))
         font = QtGui.QFont()
         font.setPointSize(16)
         self.label_4.setFont(font)
@@ -89,7 +92,7 @@ class Ui_MainWindow(object):
         self.label_3.setFont(font)
         self.label_3.setObjectName("label_3")
         self.label_2 = QtWidgets.QLabel(self.centralwidget)
-        self.label_2.setGeometry(QtCore.QRect(300, 190, 71, 20))
+        self.label_2.setGeometry(QtCore.QRect(300, 190, 81, 31))
         font = QtGui.QFont()
         font.setPointSize(16)
         self.label_2.setFont(font)
@@ -107,15 +110,22 @@ class Ui_MainWindow(object):
         self.happy_label.setFont(font)
         self.happy_label.setObjectName("happy_label")
         self.emotion_show = QtWidgets.QLabel(self.centralwidget)
-        self.emotion_show.setGeometry(QtCore.QRect(250, 400, 291, 101))
+        self.emotion_show.setGeometry(QtCore.QRect(250, 380, 291, 101))
         font = QtGui.QFont()
         font.setPointSize(28)
         self.emotion_show.setFont(font)
         self.emotion_show.setText("")
         self.emotion_show.setObjectName("emotion_show")
+        self.recommend_button = QtWidgets.QPushButton(self.centralwidget, clicked=self.press_recommend)
+        self.recommend_button.setGeometry(QtCore.QRect(200, 530, 341, 41))
+        font = QtGui.QFont()
+        font.setFamily("Ravie")
+        font.setPointSize(20)
+        self.recommend_button.setFont(font)
+        self.recommend_button.setObjectName("recommend_button")
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 800, 21))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 826, 21))
         self.menubar.setObjectName("menubar")
         MainWindow.setMenuBar(self.menubar)
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
@@ -124,22 +134,102 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
-    def press_it_distress(self):
-        self.emotion_show.setText("distressed Today")  
-    def press_it_misery(self):
-        self.emotion_show.setText("Feeling miserable Today")      
-    def press_it_sorrow(self):
-        self.emotion_show.setText("Sad Today")    
-    def press_it_contented(self):
-        self.emotion_show.setText("Contented Today")    
-    def press_it_happy(self):
-        self.emotion_show.setText("happy Today")
-    def press_it_excited(self):
-        self.emotion_show.setText("Excited Today")
+
+
+    def press_it(self,s):
+        if(s=="contented_button"):
+            self.emotion_show.setText("Contented today")
+        if(s=="distress_button"):
+            self.emotion_show.setText("Distressed today")
+        if(s=="excited_button"):
+            self.emotion_show.setText("Excited today")
+        if(s=="happy_button"):
+            self.emotion_show.setText("Happy today")
+        if(s=="misery_button"):
+            self.emotion_show.setText("Misery today")
+        if(s=="sorrow_button"):
+            self.emotion_show.setText("Sad today")
+
+
+
+    def press_recommend(self):
+        #print()
+        if(self.emotion_show.text()=="" ):
+            self.emotion_show.setText("choose emotion")
+
+        song_list=[]
+        if(self.emotion_show.text()=="Contented today"):
+            with open("contentment.txt","r") as infile:
+                for lines in infile.readlines():
+                    l=lines.split(sep=",")
+                    #print(l)
+                    song_list.append(l[3]+"-"+l[5])
+
+        if(self.emotion_show.text()=="Distressed today"):
+            with open("distress.txt","r") as infile:
+                for lines in infile.readlines():
+                    l=lines.split(sep=",")
+                    #print(l)
+                    song_list.append(l[3]+"-"+l[5])
+
+        if(self.emotion_show.text()=="Excited today"):
+            with open("excited.txt","r") as infile:
+                for lines in infile.readlines():
+                    l=lines.split(sep=",")
+                    #print(l)
+                    song_list.append(l[3]+"-"+l[5])
+
+        if(self.emotion_show.text()=="Happy today"):
+            with open("pleasure.txt","r") as infile:
+                for lines in infile.readlines():
+                    l=lines.split(sep=",")
+                    #print(l)
+                    song_list.append(l[3]+"-"+l[5])
+
+        if(self.emotion_show.text()=="Misery today"):
+            with open("misery.txt","r") as infile:
+                for lines in infile.readlines():
+                    l=lines.split(sep=",")
+                    #print(l)
+                    song_list.append(l[3]+"-"+l[5])
+
+        if(self.emotion_show.text()=="Sad today"):
+            with open("sorrow.txt","r") as infile:
+                for lines in infile.readlines():
+                    l=lines.split(sep=",")
+                    song_list.append(l[3]+"-"+l[5])
+
+        print(song_list)   
+        
+
+                   
+        filepath1 = r"C:\Users\mistu\Desktop\Bhavrabi mam\triplets_file.csv"
+
+        filepath2 = r"C:\Users\mistu\Desktop\Bhavrabi mam\song_data.csv"
+
+
+        song_df_1=pd.read_csv(filepath1)
+        song_df_2=pd.read_csv(filepath2)
+        song_df_main=pd.merge(song_df_1,song_df_2.drop_duplicates(['song_id']),on='song_id',how='left')
+        
+        song_df_main['song']=song_df_main['title'] +'-'+song_df_main['artist_name']
+        song_df_main=song_df_main.head(10000)
+
+        ir=rec.item_similarity_recommender_py()
+        ir.create(song_df_main,'user_id','song')
+        print(ir.get_similar_items(song_list).drop(['user_id'],axis=1))
+
+        
+        
+
+
+
+
+
+
+
+
     
-
-
-
 
 
     def retranslateUi(self, MainWindow):
@@ -151,6 +241,7 @@ class Ui_MainWindow(object):
         self.label_2.setText(_translate("MainWindow", "Sorrow"))
         self.label.setText(_translate("MainWindow", "Misery"))
         self.happy_label.setText(_translate("MainWindow", "Distress"))
+        self.recommend_button.setText(_translate("MainWindow", "Recommend Song"))
 
 
 if __name__ == "__main__":

@@ -1,0 +1,8 @@
+b80344d063b5ccb3212f76538f3d9e43d87dca9e,SOMGIYR12AB0187973,6,Behind The Sea [Live In Chicago],Live In Chicago,Panic At The Disco,0
+b80344d063b5ccb3212f76538f3d9e43d87dca9e,SOMLMKI12A81C204BC,1,Champion,Graduation,Kanye West,2007
+b80344d063b5ccb3212f76538f3d9e43d87dca9e,SOMSQJY12A8C138539,1,Breakout,There Is Nothing Left To Lose,Foo Fighters,1999
+b80344d063b5ccb3212f76538f3d9e43d87dca9e,SONSAEZ12A8C138D7A,1,Ragged Wood,Fleet Foxes,Fleet Foxes,2008
+b80344d063b5ccb3212f76538f3d9e43d87dca9e,SOOKGRB12A8C13CD66,1,Mykonos,Sun Giant,Fleet Foxes,2008
+b80344d063b5ccb3212f76538f3d9e43d87dca9e,SOPCVQE12AC468AF36,1,Country Road,En Concert,Jack Johnson / Paula Fuga,2009
+b80344d063b5ccb3212f76538f3d9e43d87dca9e,SOQIVUD12AB01821D2,1,Oh No,Noble Beast,Andrew Bird,2009
+b80344d063b5ccb3212f76538f3d9e43d87dca9e,SOQJLDY12AAF3B456D,1,Love Song For No One,Room For Squares,John Mayer,0
