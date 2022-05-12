@@ -12,6 +12,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 import pandas as pd
 import numpy as np
 import Recommenders as rec
+from finalwindow import Ui_Dialog
 
 
 class Ui_MainWindow(object):
@@ -149,76 +150,104 @@ class Ui_MainWindow(object):
             self.emotion_show.setText("Misery today")
         if(s=="sorrow_button"):
             self.emotion_show.setText("Sad today")
+        '''
+        self.Window=QtWidgets.QDialog()
+        self.ui= Ui_Dialog()
+        self.ui.setupUi(self.Window)
+        self.Window.show()
+        '''    
 
 
 
     def press_recommend(self):
         #print()
-        if(self.emotion_show.text()=="" ):
+        if(self.emotion_show.text()=="" or self.emotion_show.text()=="choose emotion"):
             self.emotion_show.setText("choose emotion")
+        else:    
+            song_list=[]
+            if(self.emotion_show.text()=="Contented today"):
+                with open("contentment.txt","r") as infile:
+                    for lines in infile.readlines():
+                        l=lines.split(sep=",")
+                        #print(l)
+                        song_list.append(l[3]+"-"+l[5])
 
-        song_list=[]
-        if(self.emotion_show.text()=="Contented today"):
-            with open("contentment.txt","r") as infile:
-                for lines in infile.readlines():
-                    l=lines.split(sep=",")
-                    #print(l)
-                    song_list.append(l[3]+"-"+l[5])
+            if(self.emotion_show.text()=="Distressed today"):
+                with open("distress.txt","r") as infile:
+                    for lines in infile.readlines():
+                        l=lines.split(sep=",")
+                        #print(l)
+                        song_list.append(l[3]+"-"+l[5])
 
-        if(self.emotion_show.text()=="Distressed today"):
-            with open("distress.txt","r") as infile:
-                for lines in infile.readlines():
-                    l=lines.split(sep=",")
-                    #print(l)
-                    song_list.append(l[3]+"-"+l[5])
+            if(self.emotion_show.text()=="Excited today"):
+                with open("excited.txt","r") as infile:
+                    for lines in infile.readlines():
+                        l=lines.split(sep=",")
+                        #print(l)
+                        song_list.append(l[3]+"-"+l[5])
 
-        if(self.emotion_show.text()=="Excited today"):
-            with open("excited.txt","r") as infile:
-                for lines in infile.readlines():
-                    l=lines.split(sep=",")
-                    #print(l)
-                    song_list.append(l[3]+"-"+l[5])
+            if(self.emotion_show.text()=="Happy today"):
+                with open("pleasure.txt","r") as infile:
+                    for lines in infile.readlines():
+                        l=lines.split(sep=",")
+                        #print(l)
+                        song_list.append(l[3]+"-"+l[5])
 
-        if(self.emotion_show.text()=="Happy today"):
-            with open("pleasure.txt","r") as infile:
-                for lines in infile.readlines():
-                    l=lines.split(sep=",")
-                    #print(l)
-                    song_list.append(l[3]+"-"+l[5])
+            if(self.emotion_show.text()=="Misery today"):
+                with open("misery.txt","r") as infile:
+                    for lines in infile.readlines():
+                        l=lines.split(sep=",")
+                        #print(l)
+                        song_list.append(l[3]+"-"+l[5])
 
-        if(self.emotion_show.text()=="Misery today"):
-            with open("misery.txt","r") as infile:
-                for lines in infile.readlines():
-                    l=lines.split(sep=",")
-                    #print(l)
-                    song_list.append(l[3]+"-"+l[5])
+            if(self.emotion_show.text()=="Sad today"):
+                with open("sorrow.txt","r") as infile:
+                    for lines in infile.readlines():
+                        l=lines.split(sep=",")
+                        song_list.append(l[3]+"-"+l[5])
 
-        if(self.emotion_show.text()=="Sad today"):
-            with open("sorrow.txt","r") as infile:
-                for lines in infile.readlines():
-                    l=lines.split(sep=",")
-                    song_list.append(l[3]+"-"+l[5])
+            print(song_list)   
+            
 
-        print(song_list)   
-        
+                    
+            filepath1 = r"C:\Users\mistu\Desktop\Bhavrabi mam\triplets_file.csv"
 
-                   
-        filepath1 = r"C:\Users\mistu\Desktop\Bhavrabi mam\triplets_file.csv"
-
-        filepath2 = r"C:\Users\mistu\Desktop\Bhavrabi mam\song_data.csv"
+            filepath2 = r"C:\Users\mistu\Desktop\Bhavrabi mam\song_data.csv"
 
 
-        song_df_1=pd.read_csv(filepath1)
-        song_df_2=pd.read_csv(filepath2)
-        song_df_main=pd.merge(song_df_1,song_df_2.drop_duplicates(['song_id']),on='song_id',how='left')
-        
-        song_df_main['song']=song_df_main['title'] +'-'+song_df_main['artist_name']
-        song_df_main=song_df_main.head(10000)
+            song_df_1=pd.read_csv(filepath1)
+            song_df_2=pd.read_csv(filepath2)
+            song_df_main=pd.merge(song_df_1,song_df_2.drop_duplicates(['song_id']),on='song_id',how='left')
+            
+            song_df_main['song']=song_df_main['title'] +'-'+song_df_main['artist_name']
+            song_df_main=song_df_main.head(10000)
 
-        ir=rec.item_similarity_recommender_py()
-        ir.create(song_df_main,'user_id','song')
-        print(ir.get_similar_items(song_list).drop(['user_id'],axis=1))
+            ir=rec.item_similarity_recommender_py()
+            ir.create(song_df_main,'user_id','song')
+            rec_df=ir.get_similar_items(song_list).drop(['user_id'],axis=1)
+            print(rec_df)
+            l=[]
+            for i in rec_df.index:
+                l.append(rec_df['song'][i]+'    '+str(rec_df['rank'][i]))
 
+            print(l)
+            self.Window=QtWidgets.QDialog()
+            self.ui= Ui_Dialog()
+            self.ui.setupUi(self.Window)
+            self.Window.show()
+            self.ui.label_1.setText(l[0])
+            self.ui.label_2.setText(l[1])
+            self.ui.label_3.setText(l[2])
+            self.ui.label_4.setText(l[3])
+            self.ui.label_5.setText(l[4])
+            self.ui.label_6.setText(l[5])
+            self.ui.label_7.setText(l[6])
+            self.ui.label_8.setText(l[7])
+            self.ui.label_9.setText(l[8])
+            self.ui.label_10.setText(l[9])
+    
+
+            
         
         
 

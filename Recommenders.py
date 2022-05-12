@@ -57,7 +57,12 @@ class item_similarity_recommender_py():
         for i in range(0,len(all_songs)):
             #Calculate unique listeners (users) of song (item) i
             songs_i_data = self.train_data[self.train_data[self.item_id] == all_songs[i]]
+            #self.train_data[self.item_id] == all_songs[i]    Statement generates T/F whether a row has the 'song' column=all_songs[i]         
+            #songs_i_data    Dataframe containing all rows having 'song' column=all_song[i]
+
             users_i = set(songs_i_data[self.user_id].unique())
+
+            #users_i     Set of all users who have listened to 'song'=all_song[i]
             
             for j in range(0,len(user_songs)):       
                     
@@ -73,6 +78,8 @@ class item_similarity_recommender_py():
                     users_union = users_i.union(users_j)
                     
                     cooccurence_matrix[j,i] = float(len(users_intersection))/float(len(users_union))
+
+                    #no of listeners who have listened to both song i and j / no of listeners who have listened to song i or j
                 else:
                     cooccurence_matrix[j,i] = 0
                     
